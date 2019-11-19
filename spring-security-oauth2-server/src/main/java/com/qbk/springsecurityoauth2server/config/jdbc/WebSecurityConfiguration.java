@@ -1,5 +1,6 @@
 package com.qbk.springsecurityoauth2server.config.jdbc;
 
+import com.qbk.springsecurityoauth2server.config.jdbc.service.UserDetailsServiceImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -8,10 +9,13 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 /**
- * Security配置（TODO 基于jdbc）
+ * Security配置（基于jdbc）
+ *
+ * 使用RBAC数据库模型
  */
 @Configuration
 //开启 Security 服务
@@ -35,6 +39,12 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
         return new BCryptPasswordEncoder();
     }
 
+    @Bean
+    @Override
+    public UserDetailsService userDetailsService() {
+        return new UserDetailsServiceImpl();
+    }
+
     /**
      * 配置AuthenticationManagerBuilder
      *
@@ -46,11 +56,8 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
      */
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-            auth
-                 // 在内存中启用基于用户名的身份验证
-                .inMemoryAuthentication()
-                .withUser("user").password(passwordEncoder().encode("123456")).roles("USER").and()
-                .withUser("admin").password(passwordEncoder().encode("123456")).roles("USER", "ADMIN");
+        // 使用自定义认证与授权
+        auth.userDetailsService(userDetailsService());
     }
 
     /**
@@ -73,6 +80,8 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
      */
     @Override
     public void configure(WebSecurity web) throws Exception {
-        super.configure(web);
+        // 将 check_token 暴露出去，否则资源服务器访问时报 403 错误
+        web.ignoring().antMatchers("/oauth/check_token");
     }
+
 }

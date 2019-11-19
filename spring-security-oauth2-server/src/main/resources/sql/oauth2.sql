@@ -67,3 +67,7 @@ CREATE TABLE `oauth_refresh_token` (
   `token` blob,
   `authentication` blob
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+INSERT INTO `oauth_client_details` VALUES ('client', NULL, '$2a$10$zDVX2dhp6Ye6PjXwK5Y2TuSQcs81vRO/vdH/sKCqB1BakbCXE789G', 'app', 'authorization_code', 'https://www.quboka.cn', NULL, NULL, NULL, NULL, NULL);
+

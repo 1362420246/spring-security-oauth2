@@ -21,7 +21,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 
 /**
- * 配置认证服务器（TODO 基于jdbc）
+ * 配置认证服务器（基于jdbc）
  *
  * 前提：
  * 1.连接数据库并创建相关表

@@ -25,6 +25,7 @@
         <java.version>1.8</java.version>
         <spring-cloud.version>Greenwich.RELEASE</spring-cloud.version>
         <spring.boot.version>2.1.9.RELEASE</spring.boot.version>
+        <tk.mybatis.version>2.1.5</tk.mybatis.version>
     </properties>
 
     <dependencyManagement>
@@ -74,6 +75,17 @@
                 <version>${mysql.version}</version>
             </dependency>
 
+            <dependency>
+                <groupId>tk.mybatis</groupId>
+                <artifactId>mapper-spring-boot-starter</artifactId>
+                <version>${tk.mybatis.version}</version>
+            </dependency>
+            <!-- Lombok -->
+            <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>1.18.10</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
