@@ -10,6 +10,7 @@ import tk.mybatis.spring.annotation.MapperScan;
  * 认证服务
  */
 @SpringBootApplication()
+//扫描mapper类 注意使用tk.mybatis
 @MapperScan(basePackages = "com.qbk.springsecurityoauth2server.mapper")
 public class SpringSecurityOauth2ServerApplication {
 

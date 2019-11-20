@@ -49,22 +49,32 @@ CREATE TABLE `tb_user_role` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=utf8 COMMENT='用户角色表';
 
-INSERT INTO `tb_user` VALUES (1, 'admin', '$2a$10$kErNoAjde6BKnv6/54GRoe6Okn2r4YUH88N1Hl2SARcn9JRunux6a', '18610790414', '1362420246@qq.com', '2019-11-19 16:38:57', '2019-11-19 16:39:00');
+INSERT INTO `tb_permission` VALUES (37, 0, '系统管理', 'System', '/', NULL, '2019-04-04 23:22:54', '2019-04-04 23:22:56');
+INSERT INTO `tb_permission` VALUES (38, 37, '用户管理', 'SystemUser', '/users/', NULL, '2019-04-04 23:25:31', '2019-04-04 23:25:33');
+INSERT INTO `tb_permission` VALUES (39, 38, '查看用户', 'SystemUserView', '/users/view/**', NULL, '2019-04-04 15:30:30', '2019-04-04 15:30:43');
+INSERT INTO `tb_permission` VALUES (40, 38, '新增用户', 'SystemUserInsert', '/users/insert/**', NULL, '2019-04-04 15:30:31', '2019-04-04 15:30:44');
+INSERT INTO `tb_permission` VALUES (41, 38, '编辑用户', 'SystemUserUpdate', '/users/update/**', NULL, '2019-04-04 15:30:32', '2019-04-04 15:30:45');
+INSERT INTO `tb_permission` VALUES (42, 38, '删除用户', 'SystemUserDelete', '/users/delete/**', NULL, '2019-04-04 15:30:48', '2019-04-04 15:30:45');
+INSERT INTO `tb_permission` VALUES (44, 37, '内容管理', 'SystemContent', '/contents/', NULL, '2019-04-06 18:23:58', '2019-04-06 18:24:00');
+INSERT INTO `tb_permission` VALUES (45, 44, '查看内容', 'SystemContentView', '/contents/view/**', NULL, '2019-04-06 23:49:39', '2019-04-06 23:49:41');
+INSERT INTO `tb_permission` VALUES (46, 44, '新增内容', 'SystemContentInsert', '/contents/insert/**', NULL, '2019-04-06 23:51:00', '2019-04-06 23:51:02');
+INSERT INTO `tb_permission` VALUES (47, 44, '编辑内容', 'SystemContentUpdate', '/contents/update/**', NULL, '2019-04-06 23:51:04', '2019-04-06 23:51:06');
+INSERT INTO `tb_permission` VALUES (48, 44, '删除内容', 'SystemContentDelete', '/contents/delete/**', NULL, '2019-04-06 23:51:08', '2019-04-06 23:51:10');
 
-INSERT INTO `tb_role` VALUES (1, 0, '超级管理员', 'admin', NULL, '2019-11-19 16:40:55', '2019-11-19 16:40:59');
+INSERT INTO `tb_role` VALUES (37, 0, '超级管理员', 'admin', NULL, '2019-04-04 23:22:03', '2019-04-04 23:22:05');
 
-INSERT INTO `tb_permission` VALUES (1, 0, '系统管理员', 'System', '/', NULL, '2019-11-19 16:42:10', '2019-11-19 16:42:11');
-INSERT INTO `tb_permission` VALUES (38, 1, '用户管理', 'SystemUser', '/user/', NULL, '2019-11-19 16:43:04', '2019-11-19 16:43:08');
-INSERT INTO `tb_permission` VALUES (39, 38, '查看用户', 'SystemUserVIew', '/user/view/', NULL, '2019-11-19 16:44:41', '2019-11-19 16:44:42');
-INSERT INTO `tb_permission` VALUES (40, 38, '新增用户', 'SystemUserInsert', '/user/insert/', NULL, '2019-11-19 16:46:23', '2019-11-19 16:46:26');
-INSERT INTO `tb_permission` VALUES (41, 38, '编辑用户', 'SystemUserUpdate', '/user/update/', NULL, '2019-11-19 16:47:30', '2019-11-19 16:47:33');
-INSERT INTO `tb_permission` VALUES (42, 38, '删除用户', 'SystemUserDelete', '/user/delete/', NULL, '2019-11-19 16:48:34', '2019-11-19 16:48:36');
+INSERT INTO `tb_role_permission` VALUES (37, 37, 37);
+INSERT INTO `tb_role_permission` VALUES (38, 37, 38);
+INSERT INTO `tb_role_permission` VALUES (39, 37, 39);
+INSERT INTO `tb_role_permission` VALUES (40, 37, 40);
+INSERT INTO `tb_role_permission` VALUES (41, 37, 41);
+INSERT INTO `tb_role_permission` VALUES (42, 37, 42);
+INSERT INTO `tb_role_permission` VALUES (43, 37, 44);
+INSERT INTO `tb_role_permission` VALUES (44, 37, 45);
+INSERT INTO `tb_role_permission` VALUES (45, 37, 46);
+INSERT INTO `tb_role_permission` VALUES (46, 37, 47);
+INSERT INTO `tb_role_permission` VALUES (47, 37, 48);
 
-INSERT INTO `tb_role_permission` VALUES (1, 1, 1);
-INSERT INTO `tb_role_permission` VALUES (3, 1, 38);
-INSERT INTO `tb_role_permission` VALUES (4, 1, 39);
-INSERT INTO `tb_role_permission` VALUES (5, 1, 40);
-INSERT INTO `tb_role_permission` VALUES (6, 1, 41);
-INSERT INTO `tb_role_permission` VALUES (7, 1, 42);
+INSERT INTO `tb_user` VALUES (37, 'admin', '$2a$10$9ZhDOBp.sRKat4l14ygu/.LscxrMUcDAfeVOEPiYwbcRkoB09gCmi', '18610790414', '1362420246@qq.com', '2019-04-04 23:21:27', '2019-04-04 23:21:29');
 
-INSERT INTO `tb_user_role` VALUES (1, 1, 1);
+INSERT INTO `tb_user_role` VALUES (37, 37, 37);
