@@ -5,7 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 /**
  * @author ：quboka
- * @description：
+ * @description： Security 表单练习
  * @date ：2019/12/5 20:11
  */
 @SpringBootApplication
