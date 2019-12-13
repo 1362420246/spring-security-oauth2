@@ -11,6 +11,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+/**
+ * 登陆失败
+ */
 @Component
 public class MyAuthenticationFailureHandler implements AuthenticationFailureHandler {
 
@@ -22,6 +25,6 @@ public class MyAuthenticationFailureHandler implements AuthenticationFailureHand
                                         AuthenticationException exception) throws IOException {
         response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
         response.setContentType("application/json;charset=utf-8");
-        response.getWriter().write(mapper.writeValueAsString(exception.getMessage() + "233"));
+        response.getWriter().write(mapper.writeValueAsString(exception.getMessage() + "：登陆失败"));
     }
 }

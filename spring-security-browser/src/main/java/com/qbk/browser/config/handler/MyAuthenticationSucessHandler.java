@@ -10,6 +10,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+/**
+ * 登陆成功
+ */
 @Component
 public class MyAuthenticationSucessHandler implements AuthenticationSuccessHandler {
 
@@ -28,6 +31,7 @@ public class MyAuthenticationSucessHandler implements AuthenticationSuccessHandl
         // SavedRequest savedRequest = requestCache.getRequest(request, response);
         // System.out.println(savedRequest.getRedirectUrl());
         // redirectStrategy.sendRedirect(request, response, savedRequest.getRedirectUrl());
+        //重定向
         redirectStrategy.sendRedirect(request, response, "/index");
     }
 }
