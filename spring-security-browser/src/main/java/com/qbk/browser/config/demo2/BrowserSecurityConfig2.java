@@ -107,8 +107,8 @@ public class BrowserSecurityConfig2 extends WebSecurityConfigurerAdapter {
 				.loginPage("/authentication/require")//自定义登录页的controller
 				.loginProcessingUrl("/authentication/form")//登陆界面发起登陆请求的URL
 				.failureUrl("/html/login.html")//登陆失败的页面跳转URL
-//                .successHandler(authenticationSucessHandler) // 处理登录成功
-//                .failureHandler(authenticationFailureHandler) // 处理登录失败
+                .successHandler(authenticationSucessHandler) // 处理登录成功
+                .failureHandler(authenticationFailureHandler) // 处理登录失败
 				.and()//连接词
 				.authorizeRequests()//授权请求 启用基于 HttpServletRequest 的访问限制，开始配置哪些URL需要被保护、哪些不需要被保护
 				.antMatchers("/html/login.html","/authentication/require").permitAll()//匹配器 所有放行 未登陆用户允许的请求
