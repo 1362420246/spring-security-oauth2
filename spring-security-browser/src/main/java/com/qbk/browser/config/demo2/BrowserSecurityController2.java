@@ -48,7 +48,7 @@ public class BrowserSecurityController2 {
 			//请求的url
 			String targetUrl = savedRequest.getRedirectUrl();
 			log.info("引发跳转的请求是:" + targetUrl);
-			if (StringUtils.endsWithIgnoreCase(targetUrl, ".html")) {
+			if (StringUtils.endsWithIgnoreCase(targetUrl, "login")) {
 				//URL的重定向  指定的登录页
 				redirectStrategy.sendRedirect(request, response, "/html/login.html");
 			}

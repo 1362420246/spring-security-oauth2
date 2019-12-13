@@ -1,9 +1,14 @@
 package com.qbk.browser.config.demo2;
+import com.qbk.browser.config.exception.EntryPointUnauthorizedHandler;
+import com.qbk.browser.config.exception.RestAccessDeniedHandler;
+import com.qbk.browser.config.handler.MyAuthenticationFailureHandler;
+import com.qbk.browser.config.handler.MyAuthenticationSucessHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -39,6 +44,14 @@ import org.springframework.security.crypto.password.PasswordEncoder;
  *
  */
 @Configuration
+/**
+ * 开启启全局 Securtiy 注解
+ *
+ * Spring Security默认是禁用注解的，要想开启注解，
+ * 需要在继承WebSecurityConfigurerAdapter的类上加@EnableGlobalMethodSecurity注解，
+ * 来判断用户对某个控制层的方法是否具有访问权限
+ */
+@EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true, jsr250Enabled = true)
 public class BrowserSecurityConfig2 extends WebSecurityConfigurerAdapter {
 
 	/**
@@ -58,6 +71,32 @@ public class BrowserSecurityConfig2 extends WebSecurityConfigurerAdapter {
 	private UserDetailsService userDetailsServiceImpl2;
 
     /**
+     * successHandler
+     */
+    @Autowired
+    private MyAuthenticationSucessHandler authenticationSucessHandler;
+
+    /**
+     * failureHandler
+     */
+    @Autowired
+    private MyAuthenticationFailureHandler authenticationFailureHandler;
+
+
+    /**
+     *  用来解决匿名用户访问无权限资源时的异常
+     */
+    @Autowired
+    private EntryPointUnauthorizedHandler entryPointUnauthorizedHandler;
+
+    /**
+     *  用来解决认证过的用户访问无权限资源时的异常
+     */
+    @Autowired
+    private RestAccessDeniedHandler restAccessDeniedHandler;
+
+
+    /**
      * 用来配置拦截保护的请求，可配置什么请求放行、什么请求验证
 	 * @param http 安全请求对象
 	 */
@@ -68,12 +107,18 @@ public class BrowserSecurityConfig2 extends WebSecurityConfigurerAdapter {
 				.loginPage("/authentication/require")//自定义登录页的controller
 				.loginProcessingUrl("/authentication/form")//登陆界面发起登陆请求的URL
 				.failureUrl("/html/login.html")//登陆失败的页面跳转URL
+//                .successHandler(authenticationSucessHandler) // 处理登录成功
+//                .failureHandler(authenticationFailureHandler) // 处理登录失败
 				.and()//连接词
 				.authorizeRequests()//授权请求 启用基于 HttpServletRequest 的访问限制，开始配置哪些URL需要被保护、哪些不需要被保护
 				.antMatchers("/html/login.html","/authentication/require").permitAll()//匹配器 所有放行 未登陆用户允许的请求
 				.anyRequest().authenticated() //其他所有路径都需要权限校验
 				.and()
 				.csrf().disable();//禁用csrf（跨站请求伪造)
+
+        //配置自定义异常
+        //http.exceptionHandling().authenticationEntryPoint(entryPointUnauthorizedHandler).accessDeniedHandler(restAccessDeniedHandler);
+        http.exceptionHandling().accessDeniedHandler(restAccessDeniedHandler);
 
 		/*
 		http
