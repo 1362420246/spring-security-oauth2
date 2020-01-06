@@ -1,0 +1,17 @@
+auth-server: http://localhost:8881/auth
+server:
+  port: 8882
+  servlet:
+    context-path: /
+security:
+  oauth2:
+    client:
+      clientId: SampleClientId
+      clientSecret: secret
+      accessTokenUri: ${auth-server}/oauth/token
+      userAuthorizationUri: ${auth-server}/oauth/authorize
+    resource:
+      userInfoUri: ${auth-server}/user
+spring:
+  thymeleaf:
+    cache: false #是否启用模板缓存。
